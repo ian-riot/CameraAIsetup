@@ -126,6 +126,6 @@ cd ~/
 # sh ~/makedocker.sh
 
 # running the file will be manual for first time in the form:
-# docker run --network home --restart always --name video_ai -p 1882:1883 -v ./home:/root/home -d ian-riot/AIbroker:latest sh start.sh cloud.riot.network 1886 127.0.0.1 1883 videoai videoai RiotLaunchpad
+# docker run --network home --restart always --name video_ai -p 1882:1883 -v ./home:/root/home -d riotnetwork/aibroker:1.3 sh start.sh cloud.riot.network 1886 127.0.0.1 1883 videoai videoai RiotLaunchpad
 # 
 
