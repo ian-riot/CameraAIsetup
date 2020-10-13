@@ -67,19 +67,21 @@ RUN cd ~/ &&\
     rm -r ~/opencv_contrib
 # Change working dirs
 WORKDIR /builds
-RUN ls && git clone https://1c6f01cd8df16a20f93507611ddcda9603ec545f@github.com/ian-riot/AIbroker.git &&\
-    cd AIbroker &&\ 
+RUN touch gh && cd /builds  && git clone https://be7e3fd9edb11848e07d120585dc27846e47d7d8@github.com/ian-riot/AIbroker.git &&\
+    cd /builds/AIbroker &&\
     make -j$NUM_CORES release &&\
     cd .. &&\
-    cd .. &&\
-    ls AIbroker &&\
-    cp  AIbroker/bin/Release/ffmpeg ./ffmpeg &&\
-    cp  AIbroker/coco.names ./coco.names &&\
-    cp  AIbroker/yolov3-tiny.cfg ./yolov3-tiny.cfg &&\
-    cp  AIbroker/yolov3-tiny.weights ./yolov3-tiny.weights &&\
-    mkdir ./home  &&\
-    rm -r  AIbroker/*
-COPY ./start.sh . 
+    cd /builds &&\
+    ls /builds/AIbroker &&\
+    cp /builds/AIbroker/bin/Release/ffmpeg /builds/ffmpeg &&\
+    cp  /builds/AIbroker/coco.names /builds/coco.names &&\
+    cp  /builds/AIbroker/yolov3-tiny.cfg /builds/yolov3-tiny.cfg &&\
+    cp  /builds/AIbroker/yolov3-tiny.weights /builds/yolov3-tiny.weights &&\
+    mkdir /builds/home  &&\
+    rm -r  /builds/AIbroker/* &&\
+    apt-get -y install mosquitto
+COPY ./start.sh /builds
+
 #CMD ["/bin/bash", "-x", "/home/riot/start.sh"]
 EOF
 
@@ -93,7 +95,7 @@ cat > start.sh <<- "EOF"
 
 mosquitto &
 
-./ffmpeg 156.38.174.66 1883 127.0.0.1 1883
+./ffmpeg %1 %2 %3 %4 %5 %6
 
 EOF
 
@@ -124,6 +126,6 @@ cd ~/
 # sh ~/makedocker.sh
 
 # running the file will be manual for first time in the form:
-# docker run --network home --restart always --name video_ai -p 1882:1883 -v ./home:/root/home -d ian-riot/AIbroker:latest sh start.sh
+# docker run --network home --restart always --name video_ai -p 1882:1883 -v ./home:/root/home -d ian-riot/AIbroker:latest sh start.sh cloud.riot.network 1886 127.0.0.1 1883 videoai videoai RiotLaunchpad
 # 
 
