@@ -67,7 +67,7 @@ RUN cd ~/ &&\
     rm -r ~/opencv_contrib
 # Change working dirs
 WORKDIR /builds
-RUN touch gh && cd /builds  && git clone https://be7e3fd9edb11848e07d120585dc27846e47d7d8@github.com/ian-riot/AIbroker.git &&\
+RUN touch gh && cd /builds  && git clone https://fc4adc1969d6c736b9aaf1f43c5929243ccf704a@github.com/ian-riot/AIbroker.git &&\
     cd /builds/AIbroker &&\
     make -j$NUM_CORES release &&\
     cd .. &&\
