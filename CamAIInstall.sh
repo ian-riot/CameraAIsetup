@@ -95,7 +95,7 @@ cat > start.sh <<- "EOF"
 
 mosquitto &
 
-./ffmpeg %1 %2 %3 %4 %5 %6
+./ffmpeg $1 $2 $3 $4 $5 $6 $7
 
 EOF
 
